@@ -1,11 +1,14 @@
 import React from "react";
 import styled from "styled-components";
+import Navigation from "./components/navigation/Navigation";
 
 function App() {
   return (
     <Container>
-      {/* <Navigation /> */}
-      <h1>Hello World</h1>
+      <Navigation />
+      {/* <Logo /> */}
+      {/* <ImageLinkForm /> */}
+      {/* <FaceRecognition /> */}
     </Container>
   );
 }
