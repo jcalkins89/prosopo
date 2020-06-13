@@ -18,7 +18,10 @@ const Logo = () => {
         }}
       >
         <div className="Tilt-inner">
-          <img src={brain} style={{ color: "white", fill: "white" }} />
+          <img
+            src={brain}
+            style={{ paddingTop: "25px", height: "100px", width: "100px" }}
+          />
         </div>
       </Tilt>
     </LogoContainer>
