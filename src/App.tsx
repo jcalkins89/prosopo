@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import Navigation from "./components/navigation/Navigation";
+import ImageLinkForm from "./components/imageLinkForm/ImageLinkForm";
 import Logo from "./components/logo/Logo";
 
 function App() {
@@ -8,7 +9,7 @@ function App() {
     <Container>
       <Navigation />
       <Logo />
-      {/* <ImageLinkForm /> */}
+      <ImageLinkForm />
       {/* <FaceRecognition /> */}
     </Container>
   );
