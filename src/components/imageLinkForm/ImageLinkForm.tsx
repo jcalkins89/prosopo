@@ -94,15 +94,9 @@ const Input = styled.input`
 `;
 
 const Button = styled.button`
-  margin-top: 1.5%;
-  /* padding-left: var(--spacing-medium);
-  padding-right: var(--spacing-medium);
-  padding-top: var(--spacing-medium);
-  padding-bottom: var(--spacing-small); */
-
   display: inline-block;
   text-transform: uppercase;
-  background-color: #cb32b8;
+  background-color: #453f3c;
   border: 2px solid none;
   color: #f4f4f4;
   width: 30%;
@@ -113,7 +107,6 @@ const Button = styled.button`
   transition: all 0.4s;
 
   &:hover {
-    /* opacity: 0.8; */
     box-shadow: 0 14px 26px -12px;
   }
 `;
