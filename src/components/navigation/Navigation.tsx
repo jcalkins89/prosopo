@@ -17,8 +17,9 @@ const Nav = styled.nav`
 
   p {
     font-size: 1.5rem;
+    font-weight: 300;
     text-decoration: none;
-    color: #fff;
+    color: #453f3c;
     padding: 1rem;
     transition: 0.15s ease-in;
     opacity: 1;

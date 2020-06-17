@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 const ImageLinkForm = () => {
   return (
-    <LinkFormContainer>
+    <div>
       <LinkFormText>
         {"Enter an image to begin facial recognition scan"}
       </LinkFormText>
@@ -13,13 +13,11 @@ const ImageLinkForm = () => {
           <Button>Detect</Button>
         </LinkFormInner>
       </LinkFormOuter>
-    </LinkFormContainer>
+    </div>
   );
 };
 
 export default ImageLinkForm;
-
-const LinkFormContainer = styled.div``;
 
 const LinkFormOuter = styled.div`
   display: flex;
@@ -82,11 +80,13 @@ const LinkFormInner = styled.div`
 
 const LinkFormText = styled.p`
   font-size: 1.5rem;
-  color: #f4f4f4;
+  font-weight: 600;
+  color: black;
 `;
 
 const Input = styled.input`
   font-size: 1.25rem;
+  font-weight: 500;
   padding: var(--spacing-small);
   width: 70%;
   margin-right: auto;
@@ -102,6 +102,7 @@ const Button = styled.button`
   width: 30%;
   outline: none !important;
   font-size: 1.25rem;
+  font-weight: 300;
   border-radius: 3%;
   cursor: pointer;
   transition: all 0.4s;
