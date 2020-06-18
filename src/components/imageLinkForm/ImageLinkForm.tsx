@@ -1,7 +1,13 @@
 import React from "react";
 import styled from "styled-components";
 
-const ImageLinkForm = () => {
+const ImageLinkForm = ({
+  onInputChange,
+  onButtonSubmit,
+}: {
+  onInputChange: any;
+  onButtonSubmit: any;
+}) => {
   return (
     <div>
       <LinkFormText>
@@ -9,8 +15,8 @@ const ImageLinkForm = () => {
       </LinkFormText>
       <LinkFormOuter>
         <LinkFormInner>
-          <Input type="text" />
-          <Button>Detect</Button>
+          <Input type="text" onChange={onInputChange} />
+          <Button onClick={onButtonSubmit}>Detect</Button>
         </LinkFormInner>
       </LinkFormOuter>
     </div>
