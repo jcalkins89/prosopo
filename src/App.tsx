@@ -15,7 +15,14 @@ export const clarifaiApp = new Clarifai.App({
 type AppState = {
   input: string;
   imageUrl: string;
-  box: object;
+  box: Box;
+};
+
+type Box = {
+  leftCol: number | undefined;
+  topRow: number | undefined;
+  rightCol: number | undefined;
+  bottomRow: number | undefined;
 };
 
 class App extends Component<{}, AppState> {
@@ -24,13 +31,18 @@ class App extends Component<{}, AppState> {
     this.state = {
       input: "",
       imageUrl: "",
-      box: {},
+      box: {
+        leftCol: undefined,
+        topRow: undefined,
+        rightCol: undefined,
+        bottomRow: undefined,
+      },
     };
   }
 
   calculateFacePosition = (data: any) => {
     const clarifaiFace =
-      data.outputs[0].data.regions[0].region_info_bounding_box;
+      data.outputs[0].data.regions[0].region_info.bounding_box;
     const image: HTMLCanvasElement = document.getElementById(
       "inputimage"
     ) as HTMLCanvasElement;
@@ -44,8 +56,8 @@ class App extends Component<{}, AppState> {
     };
   };
 
-  displayBoundingBox = (box: Object) => {
-    this.setState({ box: box });
+  displayBoundingBox = (box: Box) => {
+    this.setState({ box });
   };
 
   onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -62,9 +74,10 @@ class App extends Component<{}, AppState> {
           // URL
           this.state.input
         )
-        .then((response: any) =>
-          this.displayBoundingBox(this.calculateFacePosition(response))
-        );
+        .then((response: any) => {
+          console.log("RESPONSE:", response);
+          this.displayBoundingBox(this.calculateFacePosition(response));
+        });
     } catch (err) {
       console.log("There was an error: ", err);
     }
