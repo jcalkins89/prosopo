@@ -15,6 +15,14 @@ export const clarifaiApp = new Clarifai.App({
 type AppState = {
   input: string;
   imageUrl: string;
+  box: Box;
+};
+
+type Box = {
+  leftCol: number | undefined;
+  topRow: number | undefined;
+  rightCol: number | undefined;
+  bottomRow: number | undefined;
 };
 
 class App extends Component<{}, AppState> {
@@ -23,8 +31,34 @@ class App extends Component<{}, AppState> {
     this.state = {
       input: "",
       imageUrl: "",
+      box: {
+        leftCol: undefined,
+        topRow: undefined,
+        rightCol: undefined,
+        bottomRow: undefined,
+      },
     };
   }
+
+  calculateFacePosition = (data: any) => {
+    const clarifaiFace =
+      data.outputs[0].data.regions[0].region_info.bounding_box;
+    const image: HTMLCanvasElement = document.getElementById(
+      "inputimage"
+    ) as HTMLCanvasElement;
+    const width = Number(image!.width);
+    const height = Number(image!.height);
+    return {
+      leftCol: clarifaiFace.left_col * width,
+      topRow: clarifaiFace.top_row * height,
+      rightCol: width - clarifaiFace.right_col * width,
+      bottomRow: height - clarifaiFace.bottom_row * height,
+    };
+  };
+
+  displayBoundingBox = (box: Box) => {
+    this.setState({ box });
+  };
 
   onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     this.setState({ input: e.target.value });
@@ -33,23 +67,20 @@ class App extends Component<{}, AppState> {
   onButtonSubmit = () => {
     this.setState({ imageUrl: this.state.input });
 
-    clarifaiApp.models
-      .predict(
-        Clarifai.FACE_DETECT_MODEL,
-        // URL
-        this.state.input
-      )
-      .then(
-        function (response: any) {
-          console.log(
-            "This is your response: ",
-            response.outputs[0].data.regions[0].region_info.bounding_box
-          );
-        },
-        function (err: Error) {
-          console.log("There was an error: ", err);
-        }
-      );
+    try {
+      clarifaiApp.models
+        .predict(
+          Clarifai.FACE_DETECT_MODEL,
+          // URL
+          this.state.input
+        )
+        .then((response: any) => {
+          console.log("RESPONSE:", response);
+          this.displayBoundingBox(this.calculateFacePosition(response));
+        });
+    } catch (err) {
+      console.log("There was an error: ", err);
+    }
   };
 
   render() {
@@ -63,7 +94,7 @@ class App extends Component<{}, AppState> {
           onInputChange={this.onInputChange}
           onButtonSubmit={this.onButtonSubmit}
         />
-        <FaceRecognition imageUrl={this.state.imageUrl} />
+        <FaceRecognition box={this.state.box} imageUrl={this.state.imageUrl} />
       </Container>
     );
   }
