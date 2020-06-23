@@ -4,6 +4,7 @@ import Navigation from "./components/navigation/Navigation";
 import ImageLinkForm from "./components/imageLinkForm/ImageLinkForm";
 import Logo from "./components/logo/Logo";
 import Rank from "./components/rank/Rank";
+import { SignIn, RegisterForm } from "./components/account-forms";
 import FaceRecognition from "./components/face-recognition/FaceRecognition";
 import ParticlesBackground from "./components/particles-background/ParticlesBackground";
 import Clarifai from "clarifai";
@@ -16,6 +17,8 @@ type AppState = {
   input: string;
   imageUrl: string;
   box: Box;
+  route: string;
+  isSignedIn: boolean;
 };
 
 type Box = {
@@ -37,6 +40,8 @@ class App extends Component<{}, AppState> {
         rightCol: undefined,
         bottomRow: undefined,
       },
+      route: "signin",
+      isSignedIn: false,
     };
   }
 
@@ -83,18 +88,40 @@ class App extends Component<{}, AppState> {
     }
   };
 
+  onRouteChange = (route: string) => {
+    if (route === "signout") {
+      this.setState({ isSignedIn: false });
+    } else if (route === "home") {
+      this.setState({ isSignedIn: true });
+    }
+
+    this.setState({ route: route });
+  };
+
   render() {
+    const { isSignedIn, box, imageUrl, route } = this.state;
+
     return (
       <Container>
         <ParticlesBackground />
-        <Navigation />
-        <Logo />
-        <Rank />
-        <ImageLinkForm
-          onInputChange={this.onInputChange}
-          onButtonSubmit={this.onButtonSubmit}
+        <Navigation
+          onRouteChange={this.onRouteChange}
+          isSignedIn={isSignedIn}
         />
-        <FaceRecognition box={this.state.box} imageUrl={this.state.imageUrl} />
+        {route === "home" ? (
+          <>
+            <Logo /> <Rank />
+            <ImageLinkForm
+              onInputChange={this.onInputChange}
+              onButtonSubmit={this.onButtonSubmit}
+            />
+            <FaceRecognition box={box} imageUrl={imageUrl} />
+          </>
+        ) : route === "signin" || route === "signout" ? (
+          <SignIn onRouteChange={this.onRouteChange} />
+        ) : (
+          <RegisterForm onRouteChange={this.onRouteChange} />
+        )}
       </Container>
     );
   }
