@@ -1,44 +1,75 @@
 import React from "react";
 import styled from "styled-components";
 
-const SignIn = () => {
+const SignIn = ({ onRouteChange }: { onRouteChange: any }) => {
   return (
-    <Main>
-      <Form>
-        <Fieldset>
-          <SignInTitle>Sign In</SignInTitle>
-          <EmailAddressSection>
-            <Label>Email</Label>
-            <EmailInput />
-          </EmailAddressSection>
-          <PasswordSection>
-            <Label>Password</Label>
-            <PasswordInput />
-          </PasswordSection>
-          <RememberLabel>
-            <input type="checkbox">Remember Me</input>
-          </RememberLabel>
-        </Fieldset>
-        <div>
-          <SignInButton type="submit" value="Sign in" />
-        </div>
-        <AccountRecoverySection>
-          <AccountOption href="#0">Sign Up</AccountOption>
-          <AccountOption href="#0">Forgot Password</AccountOption>
-        </AccountRecoverySection>
-      </Form>
-    </Main>
+    <Container>
+      <Main>
+        <Form>
+          <Fieldset>
+            <SignInTitle>Sign In</SignInTitle>
+            <EmailAddressSection>
+              <Label>Email</Label>
+              <EmailInput />
+            </EmailAddressSection>
+            <PasswordSection>
+              <Label>Password</Label>
+              <PasswordInput />
+            </PasswordSection>
+          </Fieldset>
+          <div>
+            <SignInButton
+              onClick={() => onRouteChange("home")}
+              type="submit"
+              value="Sign in"
+            />
+          </div>
+          <AccountOptionsSection>
+            <AccountOption onClick={() => onRouteChange("register")}>
+              Register
+            </AccountOption>
+          </AccountOptionsSection>
+        </Form>
+      </Main>
+    </Container>
   );
 };
 
 export default SignIn;
+
+const Container = styled.article`
+  border-radius: 0.5rem;
+  border-style: solid;
+  border-width: 1px;
+  border-color: rgba(0, 0, 0, 0.1);
+  color: #333;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  margin-right: auto;
+  margin-left: auto;
+  width: 100%;
+  max-width: 32rem;
+  box-shadow: 4px 4px 8px 0px rgba(0, 0, 0, 0.2);
+
+  @media screen and (min-width: 30em) and (max-width: 60em) {
+    .w-50-m {
+      width: 50%;
+    }
+  }
+
+  @media screen and (min-width: 60em) {
+    .w-25-l {
+      width: 25%;
+    }
+  }
+`;
 
 const Main = styled.main`
   padding: 2rem;
   color: rgba(0, 0, 0, 0.8);
 `;
 
-const Form = styled.form`
+const Form = styled.div`
   max-width: 30em;
   margin-right: auto;
   margin-left: auto;
@@ -55,16 +86,19 @@ const Fieldset = styled.fieldset`
 `;
 
 const SignInTitle = styled.legend`
-  font-size: 1.25rem;
+  font-size: 3rem;
   font-weight: 600;
   padding-left: 0;
   padding-right: 0;
   margin-left: 0;
   margin-right: 0;
+  display: block;
+  color: white;
 `;
 
 const EmailAddressSection = styled.div`
   margin-top: 1rem;
+  color: white;
 `;
 
 const Label = styled.label`
@@ -86,11 +120,18 @@ const EmailInput = styled.input`
   &:hover {
     background-color: #000;
   }
+
+  &:focus {
+    background-color: black;
+    outline: none;
+    color: white;
+  }
 `;
 
 const PasswordSection = styled.div`
   margin-top: 1rem;
   margin-bottom: 1rem;
+  color: white;
 `;
 
 const PasswordInput = styled.input`
@@ -106,16 +147,11 @@ const PasswordInput = styled.input`
   &:hover {
     background-color: #000;
   }
-`;
 
-const RememberLabel = styled.label`
-  padding: 0;
-  margin: 0;
-  line-height: 1.5;
-  font-size: 0.875rem;
-
-  &:hover {
-    cursor: pointer;
+  &:focus {
+    background-color: black;
+    outline: none;
+    color: white;
   }
 `;
 
@@ -129,7 +165,7 @@ const SignInButton = styled.input`
   -moz-appearance: none;
   border-style: solid;
   border-width: 1px;
-  border-color: #000;
+  border-color: white;
   background-color: transparent;
   -moz-osx-font-smoothing: grayscale;
   backface-visibility: hidden;
@@ -137,23 +173,25 @@ const SignInButton = styled.input`
   transition: transform 0.25s ease-out;
   font-size: 0.875rem;
   display: inline-block;
+  color: white;
 
   &:hover {
     cursor: pointer;
   }
 `;
 
-const AccountRecoverySection = styled.div`
+const AccountOptionsSection = styled.div`
   line-height: 1.5;
   margin-top: 1rem;
 `;
 
-const AccountOption = styled.a`
+const AccountOption = styled.p`
   font-size: 0.875rem;
   text-decoration: none;
   transition: color 0.15s ease-in;
   opacity: 1;
   transition: opacity 0.15s ease-in;
-  color: #000;
+  color: white;
   display: block;
+  cursor: pointer;
 `;
