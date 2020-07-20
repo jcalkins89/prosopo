@@ -55,11 +55,14 @@ class SignIn extends Component<ISignInProp, SignInState> {
               <SignInTitle>Sign In</SignInTitle>
               <EmailAddressSection>
                 <Label>Email</Label>
-                <EmailInput onChange={this.onEmailChange} />
+                <EmailInput onChange={this.onEmailChange} type="email" />
               </EmailAddressSection>
               <PasswordSection>
                 <Label>Password</Label>
-                <PasswordInput onChange={this.onPasswordChange} />
+                <PasswordInput
+                  onChange={this.onPasswordChange}
+                  type="password"
+                />
               </PasswordSection>
             </Fieldset>
             <div>
