@@ -1,39 +1,85 @@
-import React from "react";
+import React, { Component } from "react";
 import styled from "styled-components";
 
-const SignIn = ({ onRouteChange }: { onRouteChange: any }) => {
-  return (
-    <Container>
-      <Main>
-        <Form>
-          <Fieldset>
-            <SignInTitle>Sign In</SignInTitle>
-            <EmailAddressSection>
-              <Label>Email</Label>
-              <EmailInput />
-            </EmailAddressSection>
-            <PasswordSection>
-              <Label>Password</Label>
-              <PasswordInput />
-            </PasswordSection>
-          </Fieldset>
-          <div>
-            <SignInButton
-              onClick={() => onRouteChange("home")}
-              type="submit"
-              value="Sign in"
-            />
-          </div>
-          <AccountOptionsSection>
-            <AccountOption onClick={() => onRouteChange("register")}>
-              Register
-            </AccountOption>
-          </AccountOptionsSection>
-        </Form>
-      </Main>
-    </Container>
-  );
+interface ISignInProp {
+  onRouteChange: (param: string) => void;
+}
+
+type SignInState = {
+  signInEmail: string;
+  signInPassword: string;
 };
+
+class SignIn extends Component<ISignInProp, SignInState> {
+  constructor(props: ISignInProp) {
+    super(props);
+    this.state = {
+      signInEmail: "",
+      signInPassword: "",
+    };
+  }
+
+  onEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    this.setState({ signInEmail: e.target.value });
+  };
+
+  onPasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    this.setState({ signInPassword: e.target.value });
+  };
+
+  onSubmitSignIn = () => {
+    fetch("http://localhost:3000/signin", {
+      method: "post",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        email: this.state.signInEmail,
+        password: this.state.signInPassword,
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data === "success logging in") {
+          this.props.onRouteChange("home");
+        }
+      });
+  };
+
+  render() {
+    const { onRouteChange } = this.props;
+
+    return (
+      <Container>
+        <Main>
+          <Form>
+            <Fieldset>
+              <SignInTitle>Sign In</SignInTitle>
+              <EmailAddressSection>
+                <Label>Email</Label>
+                <EmailInput onChange={this.onEmailChange} />
+              </EmailAddressSection>
+              <PasswordSection>
+                <Label>Password</Label>
+                <PasswordInput onChange={this.onPasswordChange} />
+              </PasswordSection>
+            </Fieldset>
+            <div>
+              <SignInButton
+                onClick={this.onSubmitSignIn}
+                type="submit"
+                value="Sign in"
+              />
+            </div>
+            <AccountOptionsSection>
+              <AccountOption onClick={() => onRouteChange("register")}>
+                Register
+              </AccountOption>
+            </AccountOptionsSection>
+          </Form>
+        </Main>
+      </Container>
+    );
+  }
+}
 
 export default SignIn;
 
@@ -115,10 +161,12 @@ const EmailInput = styled.input`
   border-style: solid;
   border-width: 1px;
   background-color: transparent;
+  color: white;
   width: 100%;
 
   &:hover {
-    background-color: #000;
+    background-color: black;
+    color: white;
   }
 
   &:focus {
@@ -141,11 +189,13 @@ const PasswordInput = styled.input`
   border-style: solid;
   border-width: 1px;
   background-color: transparent;
+  color: white;
   width: 100%;
   font-weight: bold;
 
   &:hover {
-    background-color: #000;
+    background-color: black;
+    color: white;
   }
 
   &:focus {
