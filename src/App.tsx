@@ -13,12 +13,21 @@ export const clarifaiApp = new Clarifai.App({
   apiKey: process.env.REACT_APP_CLARIFAI_API_KEY,
 });
 
+type User = {
+  id: string;
+  name: string;
+  email: string;
+  entries: number | null;
+  joined: string;
+};
+
 type AppState = {
   input: string;
   imageUrl: string;
   box: Box;
   route: string;
   isSignedIn: boolean;
+  user: User;
 };
 
 type Box = {
@@ -42,8 +51,27 @@ class App extends Component<{}, AppState> {
       },
       route: "signin",
       isSignedIn: false,
+      user: {
+        id: "",
+        name: "",
+        email: "",
+        entries: null,
+        joined: "",
+      },
     };
   }
+
+  loadUser = (data: any) => {
+    this.setState({
+      user: {
+        id: data.id,
+        name: data.name,
+        email: data.email,
+        entries: data.entries,
+        joined: data.joined,
+      },
+    });
+  };
 
   calculateFacePosition = (data: any) => {
     const clarifaiFace =
@@ -120,7 +148,10 @@ class App extends Component<{}, AppState> {
         ) : route === "signin" || route === "signout" ? (
           <SignIn onRouteChange={this.onRouteChange} />
         ) : (
-          <RegisterForm onRouteChange={this.onRouteChange} />
+          <RegisterForm
+            loadUser={this.loadUser}
+            onRouteChange={this.onRouteChange}
+          />
         )}
       </Container>
     );

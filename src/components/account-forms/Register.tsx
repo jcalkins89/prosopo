@@ -1,38 +1,94 @@
-import React from "react";
+import React, { Component } from "react";
 import styled from "styled-components";
 
-const RegisterForm = ({ onRouteChange }: { onRouteChange: any }) => {
-  return (
-    <Container>
-      <Main>
-        <Form>
-          <Fieldset>
-            <Legend>Register</Legend>
-            <FormSection>
-              <Label>Name</Label>
-              <FormInput />
-            </FormSection>
-            <FormSection>
-              <Label>Email</Label>
-              <FormInput />
-            </FormSection>
-            <PasswordSection>
-              <Label>Password</Label>
-              <PasswordInput />
-            </PasswordSection>
-          </Fieldset>
-          <div>
-            <SignInButton
-              onClick={() => onRouteChange("home")}
-              type="submit"
-              value="Sign in"
-            />
-          </div>
-        </Form>
-      </Main>
-    </Container>
-  );
+interface IRegisterProp {
+  onRouteChange: (param: string) => void;
+  loadUser: (param: Object) => void;
+}
+
+type RegisterState = {
+  email: string;
+  password: string;
+  name: string;
 };
+
+class RegisterForm extends Component<IRegisterProp, RegisterState> {
+  constructor(props: IRegisterProp) {
+    super(props);
+    this.state = {
+      email: "",
+      password: "",
+      name: "",
+    };
+  }
+
+  onNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    this.setState({ name: e.target.value });
+  };
+
+  onEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    this.setState({ email: e.target.value });
+  };
+
+  onPasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    this.setState({ password: e.target.value });
+  };
+
+  onSubmitRegistration = () => {
+    fetch("http://localhost:3000/register", {
+      method: "post",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        email: this.state.email,
+        password: this.state.password,
+        name: this.state.name,
+      }),
+    })
+      .then((response) => response.json())
+      .then((user) => {
+        if (user) {
+          this.props.loadUser(user);
+          this.props.onRouteChange("home");
+        }
+      });
+  };
+
+  render() {
+    return (
+      <Container>
+        <Main>
+          <Form>
+            <Fieldset>
+              <Legend>Register</Legend>
+              <FormSection>
+                <Label>Name</Label>
+                <FormInput onChange={this.onNameChange} />
+              </FormSection>
+              <FormSection>
+                <Label>Email</Label>
+                <FormInput onChange={this.onEmailChange} />
+              </FormSection>
+              <PasswordSection>
+                <Label>Password</Label>
+                <PasswordInput
+                  onChange={this.onPasswordChange}
+                  type="password"
+                />
+              </PasswordSection>
+            </Fieldset>
+            <div>
+              <SignInButton
+                onClick={this.onSubmitRegistration}
+                type="submit"
+                value="Sign in"
+              />
+            </div>
+          </Form>
+        </Main>
+      </Container>
+    );
+  }
+}
 
 export default RegisterForm;
 
@@ -114,10 +170,12 @@ const FormInput = styled.input`
   border-style: solid;
   border-width: 1px;
   background-color: transparent;
+  color: white;
   width: 100%;
 
   &:hover {
-    background-color: #000;
+    background-color: black;
+    color: white;
   }
 
   &:focus {
@@ -140,11 +198,13 @@ const PasswordInput = styled.input`
   border-style: solid;
   border-width: 1px;
   background-color: transparent;
+  color: white;
   width: 100%;
   font-weight: bold;
 
   &:hover {
-    background-color: #000;
+    background-color: black;
+    color: white;
   }
 
   &:focus {
