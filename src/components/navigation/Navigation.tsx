@@ -5,7 +5,7 @@ const Navigation = ({
   onRouteChange,
   isSignedIn,
 }: {
-  onRouteChange: any;
+  onRouteChange: (param: string) => void;
   isSignedIn: boolean;
 }) => {
   if (isSignedIn) {
