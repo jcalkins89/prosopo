@@ -3,10 +3,10 @@ import styled from "styled-components";
 
 const ImageLinkForm = ({
   onInputChange,
-  onButtonSubmit,
+  onPictureSubmit,
 }: {
   onInputChange: any;
-  onButtonSubmit: any;
+  onPictureSubmit: any;
 }) => {
   return (
     <div>
@@ -16,7 +16,7 @@ const ImageLinkForm = ({
       <LinkFormOuter>
         <LinkFormInner>
           <Input type="text" onChange={onInputChange} />
-          <Button onClick={onButtonSubmit}>Detect</Button>
+          <Button onClick={onPictureSubmit}>Detect</Button>
         </LinkFormInner>
       </LinkFormOuter>
     </div>

@@ -3,6 +3,7 @@ import styled from "styled-components";
 
 interface ISignInProp {
   onRouteChange: (param: string) => void;
+  loadUser: (param: Object) => void;
 }
 
 type SignInState = {
@@ -37,8 +38,9 @@ class SignIn extends Component<ISignInProp, SignInState> {
       }),
     })
       .then((response) => response.json())
-      .then((data) => {
-        if (data === "success logging in") {
+      .then((user) => {
+        if (user.id) {
+          this.props.loadUser(user);
           this.props.onRouteChange("home");
         }
       });
