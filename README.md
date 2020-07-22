@@ -1,3 +1,3 @@
 ## Prosopo
 
-Built using the Clarifai API for image scanning and facial recognition.
+Front End site built using the Clarifai API for image scanning and facial recognition.
