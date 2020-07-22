@@ -7,11 +7,6 @@ import Rank from "./components/rank/Rank";
 import { SignIn, RegisterForm } from "./components/account-forms";
 import FaceRecognition from "./components/face-recognition/FaceRecognition";
 import ParticlesBackground from "./components/particles-background/ParticlesBackground";
-import Clarifai from "clarifai";
-
-export const clarifaiApp = new Clarifai.App({
-  apiKey: process.env.REACT_APP_CLARIFAI_API_KEY,
-});
 
 type User = {
   id: string;
@@ -101,38 +96,35 @@ class App extends Component<{}, AppState> {
 
   onPictureSubmit = () => {
     this.setState({ imageUrl: this.state.input });
-
-    try {
-      clarifaiApp.models
-        .predict(
-          Clarifai.FACE_DETECT_MODEL,
-          // URL
-          this.state.input
-        )
-        .then((response: any) => {
-          if (response) {
-            fetch("http://localhost:3000/image", {
-              method: "put",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({
-                id: this.state.user.id,
-              }),
-            })
-              .then((response) => response.json())
-              .then((count: number) => {
-                this.setState({
-                  user: Object.assign(this.state.user, { entries: count }),
-                });
-              })
-              .catch((err) => {
-                console.log(err);
+    fetch("http://localhost:3000/imageurl", {
+      method: "post",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        input: this.state.input,
+      }),
+    })
+      .then((response) => response.json())
+      .then((response: any) => {
+        if (response) {
+          fetch("http://localhost:3000/image", {
+            method: "put",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              id: this.state.user.id,
+            }),
+          })
+            .then((response) => response.json())
+            .then((count: number) => {
+              this.setState({
+                user: Object.assign(this.state.user, { entries: count }),
               });
-          }
-          this.displayBoundingBox(this.calculateFacePosition(response));
-        });
-    } catch (err) {
-      console.log("There was an error: ", err);
-    }
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        }
+        this.displayBoundingBox(this.calculateFacePosition(response));
+      });
   };
 
   onRouteChange = (route: string) => {
