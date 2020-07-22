@@ -37,28 +37,30 @@ type Box = {
   bottomRow: number | undefined;
 };
 
+const initialState = {
+  input: "",
+  imageUrl: "",
+  box: {
+    leftCol: undefined,
+    topRow: undefined,
+    rightCol: undefined,
+    bottomRow: undefined,
+  },
+  route: "signin",
+  isSignedIn: false,
+  user: {
+    id: "",
+    name: "",
+    email: "",
+    entries: 0,
+    joined: "",
+  },
+};
+
 class App extends Component<{}, AppState> {
   constructor(props: {}) {
     super(props);
-    this.state = {
-      input: "",
-      imageUrl: "",
-      box: {
-        leftCol: undefined,
-        topRow: undefined,
-        rightCol: undefined,
-        bottomRow: undefined,
-      },
-      route: "signin",
-      isSignedIn: false,
-      user: {
-        id: "",
-        name: "",
-        email: "",
-        entries: 0,
-        joined: "",
-      },
-    };
+    this.state = initialState;
   }
 
   loadUser = (data: any) => {
@@ -121,6 +123,9 @@ class App extends Component<{}, AppState> {
                 this.setState({
                   user: Object.assign(this.state.user, { entries: count }),
                 });
+              })
+              .catch((err) => {
+                console.log(err);
               });
           }
           this.displayBoundingBox(this.calculateFacePosition(response));
@@ -132,7 +137,7 @@ class App extends Component<{}, AppState> {
 
   onRouteChange = (route: string) => {
     if (route === "signout") {
-      this.setState({ isSignedIn: false });
+      this.setState(initialState);
     } else if (route === "home") {
       this.setState({ isSignedIn: true });
     }
