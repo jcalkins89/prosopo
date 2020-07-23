@@ -87,7 +87,7 @@ const LinkFormInner = styled.div`
 const LinkFormText = styled.p`
   font-size: 1.5rem;
   font-weight: 600;
-  color: black;
+  color: white;
 `;
 
 const Input = styled.input`

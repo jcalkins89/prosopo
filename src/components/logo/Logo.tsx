@@ -16,7 +16,7 @@ const Logo = () => {
           boxShadow: "0px 0px 8px 2px rgba( 0, 0, 0, 0.2 )",
           // background: "rgb(131,58,180)",
           background:
-            "linear-gradient(90deg, rgba(131,58,180,1) 0%, rgba(165,22,39,1) 50%, rgba(252,176,69,1) 100%)",
+            "linear-gradient(142deg, rgba(32,72,41,1) 55%, rgba(34,180,85,1) 100%)",
         }}
       >
         <div className="Tilt-inner">

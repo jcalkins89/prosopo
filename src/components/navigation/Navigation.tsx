@@ -34,7 +34,7 @@ const Nav = styled.nav`
     font-size: 1.5rem;
     font-weight: 300;
     text-decoration: none;
-    color: #453f3c;
+    color: white;
     padding: 1rem;
     transition: 0.15s ease-in;
     opacity: 1;

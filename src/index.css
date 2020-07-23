@@ -4,11 +4,10 @@ body {
   font-family: "Courier New", Courier, monospace;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: rgb(131, 58, 180);
-  background: linear-gradient(
-    90deg,
-    rgba(131, 58, 180, 1) 0%,
-    rgba(165, 22, 39, 1) 50%,
-    rgba(252, 176, 69, 1) 100%
+  background: rgb(32, 72, 41);
+  background: radial-gradient(
+    circle,
+    rgba(32, 72, 41, 1) 50%,
+    rgba(34, 180, 85, 1) 100%
   );
 }
