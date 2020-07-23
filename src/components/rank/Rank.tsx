@@ -2,9 +2,11 @@ import React from "react";
 import styled from "styled-components";
 
 const Rank = ({ name, entries }: { name: string; entries: number | null }) => {
+  const nameCapitalized = name.charAt(0).toUpperCase() + name.slice(1);
+
   return (
     <div>
-      <Username>{`${name}, your current ranks is...`}</Username>
+      <Username>{`${nameCapitalized}, your current rank is...`}</Username>
       <UserRank>{entries}</UserRank>
     </div>
   );

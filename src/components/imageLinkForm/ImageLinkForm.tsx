@@ -37,57 +37,28 @@ const LinkFormInner = styled.div`
   border-radius: 0.5rem;
   box-shadow: 4px 4px 8px 0px rgba(0, 0, 0, 0.2);
   width: 700px;
-  background: radial-gradient(
-        circle farthest-side at 0% 50%,
-        #fb1 23.5%,
-        rgba(240, 166, 17, 0) 0
-      )
-      21px 30px,
-    radial-gradient(
-        circle farthest-side at 0% 50%,
-        #b71 24%,
-        rgba(240, 166, 17, 0) 0
-      )
-      19px 30px,
+  background: linear-gradient(27deg, #151515 5px, transparent 5px) 0 5px,
+    linear-gradient(207deg, #151515 5px, transparent 5px) 10px 0px,
+    linear-gradient(27deg, #222 5px, transparent 5px) 0px 10px,
+    linear-gradient(207deg, #222 5px, transparent 5px) 10px 5px,
+    linear-gradient(90deg, #1b1b1b 10px, transparent 10px),
     linear-gradient(
-        #fb1 14%,
-        rgba(240, 166, 17, 0) 0,
-        rgba(240, 166, 17, 0) 85%,
-        #fb1 0
-      )
-      0 0,
-    linear-gradient(
-        150deg,
-        #fb1 24%,
-        #b71 0,
-        #b71 26%,
-        rgba(240, 166, 17, 0) 0,
-        rgba(240, 166, 17, 0) 74%,
-        #b71 0,
-        #b71 76%,
-        #fb1 0
-      )
-      0 0,
-    linear-gradient(
-        30deg,
-        #fb1 24%,
-        #b71 0,
-        #b71 26%,
-        rgba(240, 166, 17, 0) 0,
-        rgba(240, 166, 17, 0) 74%,
-        #b71 0,
-        #b71 76%,
-        #fb1 0
-      )
-      0 0,
-    linear-gradient(90deg, #b71 2%, #fb1 0, #fb1 98%, #b71 0%) 0 0 #fb1;
-  background-size: 40px 60px;
+      #1d1d1d 25%,
+      #1a1a1a 25%,
+      #1a1a1a 50%,
+      transparent 50%,
+      transparent 75%,
+      #242424 75%,
+      #242424
+    );
+  background-size: 20px 20px;
+  background-color: #1f1f1f;
 `;
 
 const LinkFormText = styled.p`
   font-size: 1.5rem;
   font-weight: 600;
-  color: black;
+  color: white;
 `;
 
 const Input = styled.input`
