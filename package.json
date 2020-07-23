@@ -13,11 +13,12 @@
     "react-particles-js": "^3.2.1",
     "react-scripts": "3.4.1",
     "react-tilt": "^0.1.4",
+    "serve": "^11.3.2",
     "styled-components": "^5.1.1",
     "typescript": "^3.9.5"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "serve -s build",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

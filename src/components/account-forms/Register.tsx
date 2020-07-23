@@ -35,7 +35,7 @@ class RegisterForm extends Component<IRegisterProp, RegisterState> {
   };
 
   onSubmitRegistration = () => {
-    fetch("http://localhost:3000/register", {
+    fetch("https://agile-lowlands-65056.herokuapp.com/register", {
       method: "post",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
