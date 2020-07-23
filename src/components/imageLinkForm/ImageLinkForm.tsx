@@ -51,8 +51,8 @@ const LinkFormInner = styled.div`
       #242424 75%,
       #242424
     );
-  background-size: 40px 60px;
-  background-color: #131313;
+  background-size: 20px 20px;
+  background-color: #1f1f1f;
 `;
 
 const LinkFormText = styled.p`
