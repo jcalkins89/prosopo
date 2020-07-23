@@ -168,16 +168,17 @@ const EmailInput = styled.input`
   background-color: transparent;
   color: white;
   width: 100%;
+  font-weight: bold;
 
   &:hover {
     background-color: black;
-    color: white;
+    color: #22b455;
   }
 
   &:focus {
     background-color: black;
     outline: none;
-    color: white;
+    color: #22b455;
   }
 `;
 
@@ -200,13 +201,13 @@ const PasswordInput = styled.input`
 
   &:hover {
     background-color: black;
-    color: white;
+    color: #22b455;
   }
 
   &:focus {
     background-color: black;
     outline: none;
-    color: white;
+    color: #22b455;
   }
 `;
 
